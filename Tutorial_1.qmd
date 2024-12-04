@@ -1,0 +1,65 @@
+---
+title: "Comparison of Cylinder Count to Engine Displacement"
+author: "Chathurangi Godahewa Gamage"
+format: pdf
+editor: visual
+---
+
+## Goal
+
+##### This report was commissioned by Big Dawg to investigate the relationship between the number of cylinders in a car engine and the engine displacement. Big Dawg believes that cars with more cylinders do not necessarily have bigger engines, which he thinks is a fabricated lie from the radical left. This report will address this research question by analyzing the \`mtcars\` dataset.
+
+```{r}
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+
+
+
+
+```
+
+```{r}
+data(mtcars)
+
+```
+
+```{r}
+str(mtcars)
+
+```
+
+#### Mean displacement for each number of cylinders
+
+```{r}
+mean_displacement <- mtcars %>%
+  group_by(cyl) %>%
+  summarise(mean_disp = round(mean(disp, na.rm = TRUE), 2))
+
+mean_displacement
+
+```
+
+### Table of Data
+
+```{r}
+mean_displacement %>%
+  kable(col.names = c("Cylinders", "Displacement"), caption = "Mean engine displacement by number of cylinders") %>%
+  kable_styling(full_width = FALSE)
+
+```
+
+```{r}
+library(ggplot2)
+ggplot(mean_displacement, aes(x = factor(cyl), y = mean_disp)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Figure 1 : Mean engine displacement by number of cylinders",
+       x = "Number of Cylinders",
+       y = "Engine Displacement (cm^3)") +
+  theme_classic()
+
+```
+
+### 
+
+The bar chart above shows the mean engine displacement for cars with different numbers of cylinders. It is evident that cars with more cylinders tend to have larger engine displacements, countering Big Dawg's initial belief. Cars with 8 cylinders have the highest mean displacement, followed by those with 6 and 4 cylinders.
